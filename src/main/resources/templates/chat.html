@@ -2,79 +2,761 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chat Application</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2/lib/stomp.min.js"></script>
-    <script src="static/js/chat.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .chat-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .connection-status {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .connection-status.connected {
+            background: #52c41a;
+        }
+
+        .connection-status.disconnected {
+            background: #f5222d;
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .main-content {
+            display: flex;
+            height: 600px;
+        }
+
+        .users-sidebar {
+            width: 250px;
+            background: #f5f5f5;
+            border-right: 1px solid #ddd;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .users-sidebar h5 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .user-item {
+            padding: 8px 12px;
+            margin-bottom: 5px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .user-item:hover {
+            transform: translateX(5px);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chatMessages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #fafafa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .message-chat .message-bubble {
+            background: white;
+            border: 1px solid #e8e8e8;
+        }
+
+        .message-sender {
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 0.9em;
+        }
+
+        .message-content {
+            margin: 5px 0;
+        }
+
+        .message-time {
+            font-size: 0.75em;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .message-system {
+            text-align: center;
+        }
+
+        .message-system .message-bubble {
+            background: #e6f7ff;
+            border: 1px solid #91d5ff;
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 0.9em;
+            color: #096dd9;
+        }
+
+        .typing-indicator {
+            padding: 10px 20px;
+            font-style: italic;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .typing-dots {
+            display: inline-block;
+        }
+
+        .typing-dots span {
+            animation: blink 1.4s infinite both;
+            display: inline-block;
+        }
+
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes blink {
+            0%, 80%, 100% { opacity: 0; }
+            40% { opacity: 1; }
+        }
+
+        .input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .username-setup {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        #usernameInput {
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            padding: 10px 20px;
+        }
+
+        #joinBtn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 30px;
+            color: white;
+            font-weight: bold;
+        }
+
+        #joinBtn:hover {
+            transform: scale(1.05);
+        }
+
+        .message-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        #messageInput {
+            flex: 1;
+            border: 2px solid #e8e8e8;
+            border-radius: 25px;
+            padding: 12px 20px;
+            transition: border-color 0.3s;
+        }
+
+        #messageInput:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        #sendBtn, #emojiBtn {
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #sendBtn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        #emojiBtn {
+            background: #f5f5f5;
+            color: #667eea;
+        }
+
+        #sendBtn:hover, #emojiBtn:hover {
+            transform: scale(1.1);
+        }
+
+        .emoji-picker {
+            position: absolute;
+            bottom: 70px;
+            right: 20px;
+            background: white;
+            border: 1px solid #e8e8e8;
+            border-radius: 10px;
+            padding: 10px;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            max-width: 300px;
+        }
+
+        .emoji-picker.show {
+            display: block;
+        }
+
+        .emoji-item {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            display: inline-block;
+        }
+
+        .emoji-item:hover {
+            transform: scale(1.2);
+        }
+
+        .char-counter {
+            font-size: 0.8em;
+            color: #999;
+            text-align: right;
+            margin-top: 5px;
+        }
+
+        .char-counter.warning {
+            color: #faad14;
+        }
+
+        .char-counter.danger {
+            color: #f5222d;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .users-sidebar {
+                width: 100%;
+                max-height: 150px;
+            }
+
+            .message-bubble {
+                max-width: 85%;
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .welcome-message i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-4">
-    <h1 class="Text-center">Real-Time Chat Application</h1>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2><i class="fas fa-comments"></i> Real-Time Chat Application</h2>
+            <small>
+                <span class="connection-status disconnected" id="connectionStatus"></span>
+                <span id="statusText">Connecting...</span>
+            </small>
+        </div>
 
-    <div id="chat" class="border rounded p-3 mb-3" style="height: 300px; overflow-y:auto;">
+        <div class="main-content">
+            <div class="users-sidebar">
+                <h5><i class="fas fa-users"></i> Online Users (<span id="userCount">0</span>)</h5>
+                <div id="usersList"></div>
+            </div>
 
-    </div>
-    <div class="mb-3">
-        <input id="nameInput" type="text" class="form-control" placeholder="Your Name"/>
-    </div>
-    <div class="input-group mb-3">
-        <input id="senderInput" type="text" class="form-control" placeholder="Enter your message here..."/>
-        <div id="inputGroupAppend">
-            <button id="sendButton" class="btn btn-outline-secondary" type="button">Send</button>
+            <div class="chat-area">
+                <div id="chatMessages">
+                    <div class="welcome-message">
+                        <i class="fas fa-comment-dots"></i>
+                        <h4>Welcome to the Chat!</h4>
+                        <p>Enter your name below to start chatting</p>
+                    </div>
+                </div>
+                <div id="typingIndicator" class="typing-indicator" style="display: none;">
+                    <span id="typingUser"></span> is typing<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>
+                </div>
+                <div class="input-area">
+                    <div id="usernameSetup" class="username-setup">
+                        <input type="text" id="usernameInput" class="form-control" placeholder="Enter your name..." maxlength="20" />
+                        <button id="joinBtn" class="btn btn-primary">Join Chat</button>
+                    </div>
+                    <div id="messageArea" style="display: none;">
+                        <div class="message-input-group">
+                            <button id="emojiBtn"><i class="fas fa-smile"></i></button>
+                            <input type="text" id="messageInput" class="form-control" placeholder="Type your message..." maxlength="500" />
+                            <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                        <div class="char-counter" id="charCounter">0 / 500</div>
+                        <div class="emoji-picker" id="emojiPicker">
+                            <span class="emoji-item" data-emoji="😀">😀</span>
+                            <span class="emoji-item" data-emoji="😂">😂</span>
+                            <span class="emoji-item" data-emoji="😊">😊</span>
+                            <span class="emoji-item" data-emoji="😍">😍</span>
+                            <span class="emoji-item" data-emoji="🤔">🤔</span>
+                            <span class="emoji-item" data-emoji="👍">👍</span>
+                            <span class="emoji-item" data-emoji="👏">👏</span>
+                            <span class="emoji-item" data-emoji="🎉">🎉</span>
+                            <span class="emoji-item" data-emoji="❤️">❤️</span>
+                            <span class="emoji-item" data-emoji="🔥">🔥</span>
+                            <span class="emoji-item" data-emoji="✨">✨</span>
+                            <span class="emoji-item" data-emoji="🚀">🚀</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</body>
-<script>
-    var stompClient = null;
 
-    function setConnected(connected) {
-        document.getElementById("sendButton").disabled = !connected;
-        document.getElementById("senderInput").disabled = !connected;
-        document.getElementById("nameInput").disabled = !connected;
-    }
+    <audio id="messageSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIGWi78OWhUAwKUKbl8LdjHAU7k9nyz3osBSJzzO7..."/>
+    </audio>
 
-    function connect() {
-        var socket = new SockJS('/chat');
-        stompClient = Stomp.over(socket);
-        stompClient.connect({}, function (frame) {
-            setConnected(true);
-            console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/messages', function (message) {
-                showMessage(JSON.parse(message.body));
-            });
-        });
-    }
+    <script>
+        let stompClient = null;
+        let currentUser = null;
+        let typingTimeout = null;
+        let isTyping = false;
 
-    function showMessage(message) {
-        var chat = document.getElementById("chat");
-        var messageElement = document.createElement("div");
-        messageElement.textContent = message.sender + ": " + message.content;
-        messageElement.className = "border-bottom mb-1";
-        chat.appendChild(messageElement);
-        chat.scrollTop = chat.scrollHeight;
-    }
+        // Elements
+        const usernameInput = document.getElementById('usernameInput');
+        const joinBtn = document.getElementById('joinBtn');
+        const usernameSetup = document.getElementById('usernameSetup');
+        const messageArea = document.getElementById('messageArea');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatMessages = document.getElementById('chatMessages');
+        const connectionStatus = document.getElementById('connectionStatus');
+        const statusText = document.getElementById('statusText');
+        const usersList = document.getElementById('usersList');
+        const userCount = document.getElementById('userCount');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const typingUser = document.getElementById('typingUser');
+        const emojiBtn = document.getElementById('emojiBtn');
+        const emojiPicker = document.getElementById('emojiPicker');
+        const charCounter = document.getElementById('charCounter');
+        const messageSound = document.getElementById('messageSound');
 
-    function sendMessage() {
-        var nameInput = document.getElementById("nameInput");
-        var senderInput = document.getElementById("senderInput");
-
-        var sender = nameInput.value.trim() || "Anonymous";
-        var content = senderInput.value.trim();
-
-        if (content === "") return;
-
-        var chatMessage = {
-            sender: sender,
-            content: content
+        // Initialize
+        window.onload = function() {
+            // Load saved username
+            const savedUsername = localStorage.getItem('chatUsername');
+            if (savedUsername) {
+                usernameInput.value = savedUsername;
+            }
+            usernameInput.focus();
         };
 
-        stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
-        senderInput.value = "";
-    }
+        // Connection
+        function connect() {
+            const socket = new SockJS('/chat');
+            stompClient = Stomp.over(socket);
+            
+            stompClient.connect({}, onConnected, onError);
+        }
 
-    document.getElementById("sendButton").onclick = sendMessage;
-    window.onload = connect;
-</script>
+        function onConnected() {
+            connectionStatus.classList.remove('disconnected');
+            connectionStatus.classList.add('connected');
+            statusText.textContent = 'Connected';
+
+            // Subscribe to messages
+            stompClient.subscribe('/topic/messages', onMessageReceived);
+            stompClient.subscribe('/topic/users', onUsersUpdate);
+            stompClient.subscribe('/topic/typing', onTypingReceived);
+            stompClient.subscribe('/user/queue/errors', onError);
+
+            // Add user
+            stompClient.send('/app/addUser', {}, JSON.stringify({
+                sender: currentUser,
+                type: 'JOIN'
+            }));
+
+            // Load recent messages
+            loadRecentMessages();
+        }
+
+        function onError(error) {
+            connectionStatus.classList.remove('connected');
+            connectionStatus.classList.add('disconnected');
+            statusText.textContent = 'Connection error. Retrying...';
+            
+            // Auto-reconnect
+            setTimeout(() => {
+                if (!stompClient || !stompClient.connected) {
+                    connect();
+                }
+            }, 5000);
+            
+            if (error.body) {
+                showSystemMessage('Error: ' + error.body, 'danger');
+            }
+        }
+
+        function disconnect() {
+            if (stompClient && stompClient.connected) {
+                stompClient.disconnect();
+            }
+            connectionStatus.classList.remove('connected');
+            connectionStatus.classList.add('disconnected');
+            statusText.textContent = 'Disconnected';
+        }
+
+        // Join chat
+        joinBtn.onclick = function() {
+            const username = usernameInput.value.trim();
+            if (username) {
+                currentUser = username;
+                localStorage.setItem('chatUsername', username);
+                usernameSetup.style.display = 'none';
+                messageArea.style.display = 'block';
+                chatMessages.innerHTML = '';
+                connect();
+                messageInput.focus();
+            }
+        };
+
+        usernameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                joinBtn.click();
+            }
+        });
+
+        // Send message
+        function sendMessage() {
+            const content = messageInput.value.trim();
+            if (content && stompClient && stompClient.connected) {
+                const message = {
+                    sender: currentUser,
+                    content: content,
+                    type: 'CHAT'
+                };
+                
+                stompClient.send('/app/sendMessage', {}, JSON.stringify(message));
+                messageInput.value = '';
+                updateCharCounter();
+                stopTyping();
+            }
+        }
+
+        sendBtn.onclick = sendMessage;
+
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Typing indicator
+        messageInput.addEventListener('input', function() {
+            updateCharCounter();
+            
+            if (!isTyping) {
+                isTyping = true;
+                notifyTyping();
+            }
+            
+            clearTimeout(typingTimeout);
+            typingTimeout = setTimeout(stopTyping, 1000);
+        });
+
+        function notifyTyping() {
+            if (stompClient && stompClient.connected) {
+                stompClient.send('/app/typing', {}, JSON.stringify({
+                    sender: currentUser,
+                    type: 'TYPING'
+                }));
+            }
+        }
+
+        function stopTyping() {
+            isTyping = false;
+        }
+
+        function onTypingReceived(payload) {
+            const message = JSON.parse(payload.body);
+            if (message.sender !== currentUser) {
+                typingUser.textContent = message.sender;
+                typingIndicator.style.display = 'block';
+                
+                clearTimeout(window.typingDisplayTimeout);
+                window.typingDisplayTimeout = setTimeout(() => {
+                    typingIndicator.style.display = 'none';
+                }, 2000);
+            }
+        }
+
+        // Character counter
+        function updateCharCounter() {
+            const length = messageInput.value.length;
+            charCounter.textContent = `${length} / 500`;
+            
+            charCounter.classList.remove('warning', 'danger');
+            if (length > 450) {
+                charCounter.classList.add('danger');
+            } else if (length > 400) {
+                charCounter.classList.add('warning');
+            }
+        }
+
+        // Emoji picker
+        emojiBtn.onclick = function() {
+            emojiPicker.classList.toggle('show');
+        };
+
+        document.querySelectorAll('.emoji-item').forEach(item => {
+            item.onclick = function() {
+                messageInput.value += this.getAttribute('data-emoji');
+                emojiPicker.classList.remove('show');
+                messageInput.focus();
+                updateCharCounter();
+            };
+        });
+
+        // Close emoji picker when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!emojiPicker.contains(e.target) && e.target !== emojiBtn) {
+                emojiPicker.classList.remove('show');
+            }
+        });
+
+        // Message handling
+        function onMessageReceived(payload) {
+            const message = JSON.parse(payload.body);
+            
+            if (message.type === 'JOIN' || message.type === 'LEAVE') {
+                showSystemMessage(message.content, message.type);
+            } else {
+                showChatMessage(message);
+                if (message.sender !== currentUser) {
+                    playMessageSound();
+                }
+            }
+        }
+
+        function showChatMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message message-chat';
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            
+            const sender = document.createElement('div');
+            sender.className = 'message-sender';
+            sender.style.color = message.color || '#667eea';
+            sender.textContent = message.sender;
+            
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            content.innerHTML = escapeHtml(message.content);
+            
+            const time = document.createElement('div');
+            time.className = 'message-time';
+            time.textContent = formatTime(message.timestamp);
+            
+            bubble.appendChild(sender);
+            bubble.appendChild(content);
+            bubble.appendChild(time);
+            messageDiv.appendChild(bubble);
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showSystemMessage(content, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message message-system';
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            
+            const icon = type === 'JOIN' ? '👋' : '👋';
+            bubble.innerHTML = `${icon} ${escapeHtml(content)}`;
+            
+            messageDiv.appendChild(bubble);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function onUsersUpdate(payload) {
+            const users = JSON.parse(payload.body);
+            updateUsersList(users);
+        }
+
+        function updateUsersList(users) {
+            usersList.innerHTML = '';
+            userCount.textContent = users.length;
+            
+            users.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
+                
+                const avatar = document.createElement('div');
+                avatar.className = 'user-avatar';
+                avatar.style.background = user.color || '#667eea';
+                avatar.textContent = user.username.charAt(0).toUpperCase();
+                
+                const username = document.createElement('span');
+                username.textContent = user.username;
+                
+                userItem.appendChild(avatar);
+                userItem.appendChild(username);
+                usersList.appendChild(userItem);
+            });
+        }
+
+        function loadRecentMessages() {
+            fetch('/api/messages/recent')
+                .then(response => response.json())
+                .then(messages => {
+                    messages.forEach(showChatMessage);
+                })
+                .catch(error => console.error('Error loading messages:', error));
+        }
+
+        // Utility functions
+        function formatTime(timestamp) {
+            if (!timestamp) return '';
+            const date = new Date(timestamp);
+            return date.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function playMessageSound() {
+            try {
+                messageSound.play().catch(e => console.log('Sound play failed:', e));
+            } catch (e) {
+                // Ignore sound errors
+            }
+        }
+
+        // Cleanup on page unload
+        window.onbeforeunload = function() {
+            disconnect();
+        };
+    </script>
+</body>
 </html>

@@ -1,0 +1,205 @@
+2026-01-09 14:46:36 [main] INFO  com.chat.app.AppApplicationTests - Starting AppApplicationTests using Java 21.0.8 with PID 20092 (started by Amuke in C:\Users\Amuke\Desktop\chat-app spring\demo\demo)
+2026-01-09 14:46:36 [main] DEBUG com.chat.app.AppApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-01-09 14:46:36 [main] INFO  com.chat.app.AppApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-01-09 14:46:36 [main] DEBUG o.s.w.c.s.GenericWebApplicationContext - Refreshing org.springframework.web.context.support.GenericWebApplicationContext@47b179d7
+2026-01-09 14:46:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-09 14:46:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 1 JPA repository interface.
+2026-01-09 14:46:38 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-01-09 14:46:38 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-01-09 14:46:38 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-09 14:46:38 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-09 14:46:39 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:chatdb user=SA
+2026-01-09 14:46:39 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-09 14:46:39 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-09 14:46:39 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:chatdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: CHATDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-09 14:46:39 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-09 14:46:39 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-09 14:46:40 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-09 14:46:40 [main] DEBUG o.s.w.s.s.s.WebSocketHandlerMapping - Patterns [/chat/**] in 'stompWebSocketHandlerMapping'
+2026-01-09 14:46:40 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-09 14:46:40 [main] DEBUG o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - 
+	c.c.a.c.ChatController:
+	{[MESSAGE],[/addUser]}: addUser(ChatMessage,SimpMessageHeaderAccessor)
+	{[MESSAGE],[/sendMessage]}: sendMessage(ChatMessage)
+	{[MESSAGE],[/typing]}: userTyping(ChatMessage)
+2026-01-09 14:46:40 [main] DEBUG o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - 
+	o.s.b.w.a.e.BasicErrorController:
+	
+2026-01-09 14:46:40 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 5 mappings in 'requestMappingHandlerMapping'
+2026-01-09 14:46:40 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-09 14:46:41 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-09 14:46:41 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-09 14:46:41 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientOutboundChannel added SubProtocolWebSocketHandler[StompSubProtocolHandler[v10.stomp, v11.stomp, v12.stomp]]
+2026-01-09 14:46:41 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientInboundChannel added WebSocketAnnotationMethodMessageHandler[prefixes=[/app/]]
+2026-01-09 14:46:41 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-01-09 14:46:41 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientInboundChannel added SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@22a89db]
+2026-01-09 14:46:41 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - brokerChannel added SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@22a89db]
+2026-01-09 14:46:41 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@22a89db]]
+2026-01-09 14:46:41 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-01-09 14:46:41 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientInboundChannel added UserDestinationMessageHandler[DefaultUserDestinationResolver[prefix=/user/]]
+2026-01-09 14:46:41 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - brokerChannel added UserDestinationMessageHandler[DefaultUserDestinationResolver[prefix=/user/]]
+2026-01-09 14:46:41 [main] INFO  com.chat.app.AppApplicationTests - Started AppApplicationTests in 4.97 seconds (process running for 6.323)
+2026-01-09 14:46:41 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientOutboundChannel removed SubProtocolWebSocketHandler[StompSubProtocolHandler[v10.stomp, v11.stomp, v12.stomp]]
+2026-01-09 14:46:41 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientInboundChannel removed WebSocketAnnotationMethodMessageHandler[prefixes=[/app/]]
+2026-01-09 14:46:41 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-01-09 14:46:41 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@22a89db]]
+2026-01-09 14:46:41 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientInboundChannel removed SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@22a89db]
+2026-01-09 14:46:41 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - brokerChannel removed SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@22a89db]
+2026-01-09 14:46:41 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-01-09 14:46:41 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientInboundChannel removed UserDestinationMessageHandler[DefaultUserDestinationResolver[prefix=/user/]]
+2026-01-09 14:46:41 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - brokerChannel removed UserDestinationMessageHandler[DefaultUserDestinationResolver[prefix=/user/]]
+2026-01-09 14:46:42 [main] INFO  c.chat.app.controller.ChatController - User TestUser joined the chat
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - Message processed: Message 0 from User0
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - Message processed: Message 1 from User1
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - Message processed: Message 2 from User2
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - Message processed: Message 3 from User3
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - Message processed: Message 4 from User4
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - Message processed: Message 5 from User5
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - Message processed: Message 6 from User6
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - Message processed: Message 7 from User7
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - Message processed: Message 8 from User8
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - Message processed: Message 9 from User9
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - User joined: User1
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - User joined: User2
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - User left: User1
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - User joined: User1
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - User joined: User2
+2026-01-09 14:46:42 [main] INFO  com.chat.app.service.ChatService - Message processed: Hello, World! from TestUser
+2026-01-09 14:46:42 [SpringApplicationShutdownHook] DEBUG o.s.w.c.s.GenericWebApplicationContext - Closing org.springframework.web.context.support.GenericWebApplicationContext@47b179d7, started on Fri Jan 09 14:46:36 IST 2026
+2026-01-09 14:46:42 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-09 14:46:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-09 14:46:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-09 14:47:44 [main] INFO  com.chat.app.AppApplication - Starting AppApplication using Java 21.0.8 with PID 8248 (C:\Users\Amuke\Desktop\chat-app spring\demo\demo\target\classes started by Amuke in C:\Users\Amuke\Desktop\chat-app spring\demo\demo)
+2026-01-09 14:47:44 [main] DEBUG com.chat.app.AppApplication - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-01-09 14:47:44 [main] INFO  com.chat.app.AppApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-09 14:47:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-09 14:47:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 40 ms. Found 1 JPA repository interface.
+2026-01-09 14:47:45 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-01-09 14:47:45 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-09 14:47:45 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-01-09 14:47:45 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1060 ms
+2026-01-09 14:47:46 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-01-09 14:47:46 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-01-09 14:47:46 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-09 14:47:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-09 14:47:46 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:chatdb user=SA
+2026-01-09 14:47:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-09 14:47:46 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-09 14:47:46 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:chatdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: CHATDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-09 14:47:47 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-09 14:47:47 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-09 14:47:47 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-09 14:47:47 [main] DEBUG o.s.w.s.s.s.WebSocketHandlerMapping - Patterns [/chat/**] in 'stompWebSocketHandlerMapping'
+2026-01-09 14:47:47 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-09 14:47:47 [main] DEBUG o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - 
+	c.c.a.c.ChatController:
+	{[MESSAGE],[/typing]}: userTyping(ChatMessage)
+	{[MESSAGE],[/addUser]}: addUser(ChatMessage,SimpMessageHeaderAccessor)
+	{[MESSAGE],[/sendMessage]}: sendMessage(ChatMessage)
+2026-01-09 14:47:47 [main] DEBUG o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - 
+	o.s.b.w.a.e.BasicErrorController:
+	
+2026-01-09 14:47:47 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 5 mappings in 'requestMappingHandlerMapping'
+2026-01-09 14:47:47 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-01-09 14:47:48 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-01-09 14:47:48 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-01-09 14:47:48 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientOutboundChannel added SubProtocolWebSocketHandler[StompSubProtocolHandler[v10.stomp, v11.stomp, v12.stomp]]
+2026-01-09 14:47:48 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientInboundChannel added WebSocketAnnotationMethodMessageHandler[prefixes=[/app/]]
+2026-01-09 14:47:48 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-01-09 14:47:48 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientInboundChannel added SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@64e680c5]
+2026-01-09 14:47:48 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - brokerChannel added SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@64e680c5]
+2026-01-09 14:47:48 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@64e680c5]]
+2026-01-09 14:47:48 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-01-09 14:47:48 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientInboundChannel added UserDestinationMessageHandler[DefaultUserDestinationResolver[prefix=/user/]]
+2026-01-09 14:47:48 [main] DEBUG o.s.m.s.ExecutorSubscribableChannel - brokerChannel added UserDestinationMessageHandler[DefaultUserDestinationResolver[prefix=/user/]]
+2026-01-09 14:47:48 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-01-09 14:47:48 [main] INFO  com.chat.app.AppApplication - Started AppApplication in 3.696 seconds (process running for 4.016)
+2026-01-09 14:48:12 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-09 14:48:12 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-09 14:48:12 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-01-09 14:48:12 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-01-09 14:48:12 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@390e814c
+2026-01-09 14:48:12 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@c5c2a84
+2026-01-09 14:48:12 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-01-09 14:48:12 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-01-09 14:48:12 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/chat?id=3100ea22-1cd0-488a-a244-68061353215a&vscodeBrowserReqId=1767950292544", parameters={masked}
+2026-01-09 14:48:12 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.chat.app.controller.ChatController#chat()
+2026-01-09 14:48:12 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-01-09 14:48:12 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-09 14:48:28 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/chat/info?t=1767950308963", parameters={masked}
+2026-01-09 14:48:28 [http-nio-8080-exec-2] DEBUG o.s.w.s.s.s.WebSocketHandlerMapping - Mapped to org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler@95958d9
+2026-01-09 14:48:28 [http-nio-8080-exec-2] DEBUG o.s.w.s.s.t.h.DefaultSockJsService - Processing transport request: GET http://localhost:8080/chat/info?t=1767950308963
+2026-01-09 14:48:28 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-09 14:48:29 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/chat/297/nnkc04js/websocket", parameters={}
+2026-01-09 14:48:29 [http-nio-8080-exec-3] DEBUG o.s.w.s.s.s.WebSocketHandlerMapping - Mapped to org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler@95958d9
+2026-01-09 14:48:29 [http-nio-8080-exec-3] DEBUG o.s.w.s.s.t.h.DefaultSockJsService - Processing transport request: GET http://localhost:8080/chat/297/nnkc04js/websocket
+2026-01-09 14:48:29 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 101 SWITCHING_PROTOCOLS
+2026-01-09 14:48:29 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.LoggingWebSocketHandlerDecorator - New WebSocketServerSockJsSession[id=nnkc04js]
+2026-01-09 14:48:29 [clientInboundChannel-2] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing CONNECT session=nnkc04js
+2026-01-09 14:48:29 [clientOutboundChannel-1] INFO  c.c.a.config.WebSocketEventListener - Received a new web socket connection
+2026-01-09 14:48:29 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/messages/recent", parameters={}
+2026-01-09 14:48:29 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.chat.app.controller.ChatController#getRecentMessages()
+2026-01-09 14:48:29 [clientInboundChannel-5] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing SUBSCRIBE /topic/messages id=sub-0 session=nnkc04js
+2026-01-09 14:48:29 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-01-09 14:48:29 [clientInboundChannel-8] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing SUBSCRIBE /topic/users id=sub-1 session=nnkc04js
+2026-01-09 14:48:29 [clientInboundChannel-11] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing SUBSCRIBE /topic/typing id=sub-2 session=nnkc04js
+2026-01-09 14:48:29 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [[]]
+2026-01-09 14:48:29 [clientInboundChannel-16] DEBUG o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Searching methods to handle SEND /app/addUser session=nnkc04js, lookupDestination='/addUser'
+2026-01-09 14:48:29 [clientInboundChannel-15] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing SUBSCRIBE destination=/queue/errors-usernnkc04js subscriptionId=sub-3 session=nnkc04js payload=byte[0]
+2026-01-09 14:48:29 [clientInboundChannel-16] DEBUG o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Invoking ChatController#addUser[2 args]
+2026-01-09 14:48:29 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-01-09 14:48:29 [clientInboundChannel-16] INFO  com.chat.app.service.ChatService - User joined: mukesjh
+2026-01-09 14:48:29 [clientInboundChannel-16] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/users session=null payload=[{"username":"mukesjh","color":"#FF6B6B","online":true}]
+2026-01-09 14:48:29 [clientInboundChannel-16] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Broadcasting to 1 sessions.
+2026-01-09 14:48:29 [clientInboundChannel-16] INFO  c.chat.app.controller.ChatController - User mukesjh joined the chat
+2026-01-09 14:48:29 [clientInboundChannel-16] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/messages session=nnkc04js payload={"id":null,"sender":"mukesjh","content":"mukesjh joined the chat!","type":"JOIN"...(truncated)
+2026-01-09 14:48:29 [clientInboundChannel-16] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Broadcasting to 1 sessions.
+2026-01-09 14:48:37 [http-nio-8080-exec-8] DEBUG o.s.w.s.h.LoggingWebSocketHandlerDecorator - WebSocketServerSockJsSession[id=nnkc04js] closed with CloseStatus[code=1000, reason=null]
+2026-01-09 14:48:37 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.SubProtocolWebSocketHandler - Clearing session nnkc04js
+2026-01-09 14:48:37 [http-nio-8080-exec-8] INFO  c.c.a.config.WebSocketEventListener - User Disconnected: mukesjh
+2026-01-09 14:48:37 [http-nio-8080-exec-8] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/messages session=null payload={"id":null,"sender":"mukesjh","content":"mukesjh left the chat","type":"LEAVE","...(truncated)
+2026-01-09 14:48:37 [http-nio-8080-exec-8] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Broadcasting to 1 sessions.
+2026-01-09 14:48:37 [http-nio-8080-exec-8] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing MESSAGE destination=/topic/users session=null payload=mukesjh
+2026-01-09 14:48:37 [http-nio-8080-exec-8] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Broadcasting to 1 sessions.
+2026-01-09 14:48:37 [clientOutboundChannel-4] DEBUG o.s.w.s.m.SubProtocolWebSocketHandler - No session for GenericMessage [payload=byte[134], headers={simpMessageType=MESSAGE, simpSubscriptionId=sub-0, contentType=application/json, simpSessionId=nnkc04js, simpDestination=/topic/messages}]
+2026-01-09 14:48:37 [clientOutboundChannel-5] DEBUG o.s.w.s.m.SubProtocolWebSocketHandler - No session for GenericMessage [payload=byte[7], headers={simpMessageType=MESSAGE, simpSubscriptionId=sub-1, contentType=text/plain;charset=UTF-8, simpSessionId=nnkc04js, simpDestination=/topic/users}]
+2026-01-09 14:48:37 [clientInboundChannel-20] DEBUG o.s.m.s.b.SimpleBrokerMessageHandler - Processing DISCONNECT session=nnkc04js
+2026-01-09 14:48:37 [clientOutboundChannel-6] DEBUG o.s.w.s.m.SubProtocolWebSocketHandler - No session for GenericMessage [payload=byte[0], headers={simpMessageType=DISCONNECT_ACK, simpDisconnectMessage=GenericMessage [payload=byte[0], headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={org.springframework.messaging.simp.SimpAttributes.COMPLETED=true, username=mukesjh}, simpSessionId=nnkc04js}], simpSessionId=nnkc04js}]
+2026-01-09 14:48:44 [MessageBroker-5] DEBUG o.s.w.s.s.t.h.DefaultSockJsService - Closed 1 sessions: [nnkc04js]
+2026-01-09 14:48:48 [MessageBroker-6] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 1 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(1)-CONNECTED(1)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 21, active threads = 0, queued tasks = 0, completed tasks = 21], outboundChannel[pool size = 6, active threads = 0, queued tasks = 0, completed tasks = 6], sockJsScheduler[pool size = 10, active threads = 1, queued tasks = 1, completed tasks = 4]
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-09 14:50:41 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientOutboundChannel removed SubProtocolWebSocketHandler[StompSubProtocolHandler[v10.stomp, v11.stomp, v12.stomp]]
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientInboundChannel removed WebSocketAnnotationMethodMessageHandler[prefixes=[/app/]]
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@64e680c5]]
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientInboundChannel removed SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@64e680c5]
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] DEBUG o.s.m.s.ExecutorSubscribableChannel - brokerChannel removed SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@64e680c5]
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] DEBUG o.s.m.s.ExecutorSubscribableChannel - clientInboundChannel removed UserDestinationMessageHandler[DefaultUserDestinationResolver[prefix=/user/]]
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] DEBUG o.s.m.s.ExecutorSubscribableChannel - brokerChannel removed UserDestinationMessageHandler[DefaultUserDestinationResolver[prefix=/user/]]
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-09 14:50:41 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

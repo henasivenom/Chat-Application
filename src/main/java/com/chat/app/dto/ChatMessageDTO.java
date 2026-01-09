@@ -1,5 +1,6 @@
-package com.chat.app.model;
+package com.chat.app.dto;
 
+import com.chat.app.model.MessageType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,10 +12,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ChatMessage {
+public class ChatMessageDTO {
     private Long id;
     private String sender;
     private String content;
     private MessageType type;
     private LocalDateTime timestamp;
+    private String color;
 }
