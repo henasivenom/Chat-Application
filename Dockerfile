@@ -10,3 +10,6 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
+RUN echo "https://chat-application-0ga2.onrender.com/chat"
+
+const socket = new SockJS('https://chat-application-0ga2.onrender.com/chat');

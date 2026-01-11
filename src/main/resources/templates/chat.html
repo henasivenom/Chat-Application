@@ -464,7 +464,14 @@
 
         // Connection
         function connect() {
-            const socket = new SockJS('/chat');
+            // Use production URL when deployed, localhost for development
+            const backendUrl = window.location.hostname === 'localhost' 
+                ? '/chat' 
+                : 'https://chat-application-0ga2.onrender.com/chat';
+                
+            const socket = new SockJS(backendUrl, null, {
+                transports: ['websocket', 'xhr-streaming', 'xhr-polling']
+            });
             stompClient = Stomp.over(socket);
             
             stompClient.connect({}, onConnected, onError);
